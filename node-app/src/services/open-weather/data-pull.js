@@ -10,5 +10,5 @@ const fetchWeatherData = async () => {
 }
 
 exports.weatherData = async () => {
-  // TODO: fetch weather data and return it as a JSON object
+  // TODO: fetch weather data, restructure to the expected output and return it as a JSON object
 }
