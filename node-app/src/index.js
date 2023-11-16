@@ -7,11 +7,6 @@ const client = new elasticsearch.Client({
   log: 'trace'
 });
 
-// OpenWeatherMap API details
-const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
-const antarcticaCoords = { lat: -82.8628, lon: 135.0000 }; // Coordinates for a location in Antarctica
-const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${antarcticaCoords.lat}&lon=${antarcticaCoords.lon}&appid=${apiKey}`;
-
 const fetchAndIndexWeatherData = async () => {
   try {
     const data = await weatherData();
@@ -56,38 +51,38 @@ client.indices.exists({ index: 'weatherdata' }, (err, resp, status) => {
             },
             base: { type: 'keyword' },
             dataPoints: {
-              'properties': {
-                'temp': { 'type': 'float' },
-                'feels_like': { 'type': 'float' },
-                'temp_min': { 'type': 'float' },
-                'temp_max': { 'type': 'float' },
-                'pressure': { 'type': 'integer' },
-                'humidity': { 'type': 'integer' },
-                'sea_level': { 'type': 'integer' },
-                'grnd_level': { 'type': 'integer' },
-                'wind': {
-                  'properties': {
-                    'speed': { 'type': 'float' },
-                    'deg': { 'type': 'integer' },
-                    'gust': { 'type': 'float' }
+              properties: {
+                temp: { type: 'float' },
+                feels_like: { type: 'float' },
+                temp_min: { type: 'float' },
+                temp_max: { type: 'float' },
+                pressure: { type: 'integer' },
+                humidity: { type: 'integer' },
+                sea_level: { type: 'integer' },
+                grnd_level: { type: 'integer' },
+                wind: {
+                  properties: {
+                    speed: { type: 'float' },
+                    deg: { type: 'integer' },
+                    gust: { type: 'float' }
                   }
                 },
-                'visibility': { 'type': 'integer' },
-                'clouds': {
-                  'properties': {
-                    'all': { 'type': 'integer' }
+                visibility: { type: 'integer' },
+                clouds: {
+                  properties: {
+                    all: { type: 'integer' }
                   }
                 },
-                'rain': {
-                  'properties': {
-                    '1h': { 'type': 'float' },
-                    '3h': { 'type': 'float' }
+                rain: {
+                  properties: {
+                    '1h': { type: 'float' },
+                    '3h': { type: 'float' }
                   }
                 },
-                'snow': {
-                  'properties': {
-                    '1h': { 'type': 'float' },
-                    '3h': { 'type': 'float' }
+                snow: {
+                  properties: {
+                    '1h': { type: 'float' },
+                    '3h': { type: 'float' }
                   }
                 }
               }
