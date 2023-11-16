@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('./config.js');
+const config = require('./config.json');
 
 const apiKey = config.apiKey
 const antarcticaCoords = { lat: -82.8628, lon: 135.0000 };
