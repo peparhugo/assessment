@@ -1,6 +1,6 @@
 const elasticsearch = require('elasticsearch');
 const schedule = require('node-schedule');
-const weatherData = require('./services/open-weather/data-pull.js');
+const {weatherData} = require('./services/open-weather/data-pull.js');
 
 const client = new elasticsearch.Client({
   host: 'elasticsearch:9200',
@@ -14,7 +14,7 @@ const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${ant
 
 const fetchAndIndexWeatherData = async () => {
   try {
-    const data = await weatherData.weatherData();
+    const data = await weatherData();
 
     client.index({
       index: 'weatherdata',
@@ -116,5 +116,4 @@ schedule.scheduleJob('*/1 * * * *', () => {
   console.log('Fetching weather data...');
   fetchAndIndexWeatherData().then(() => {});
 });
-
 
